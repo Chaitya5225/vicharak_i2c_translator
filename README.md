@@ -16,3 +16,5 @@ This repository contains the RTL, testbenches, and documentation for an FPGA-bas
 The system implements a bidirectional Store-and-Forward architecture using two independent FSMs. 
 * The **Host-facing Slave** intercepts transactions targeting the virtual address (`0x49`) and utilizes synchronous clock stretching to pause the bus.
 * The **Sensor-facing Master** forwards the buffered payload to the physical target address (`0x48`) at a standard 100kHz I²C timing.
+
+<img width="1655" height="607" alt="image" src="https://github.com/user-attachments/assets/2450b5d7-7c96-4d0d-b647-5f8cbf1f9dd8" />
