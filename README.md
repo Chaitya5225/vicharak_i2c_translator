@@ -5,7 +5,8 @@ This repository contains the RTL, testbenches, and documentation for an FPGA-bas
 ###  Key Deliverables
 * **Screen Recording :**  https://drive.google.com/drive/folders/1keifkrMtAtHTB24O1KSIDUoTONETHau6?usp=sharing
 * **EDA Playground Simulation:** https://www.edaplayground.com/x/FW7j
-
+* 
+    **Note on Web Simulation: To prevent the EPWave web viewer from crashing due to VCD memory limits (a common issue with 100MHz system clocks over long timeframes), the clock dividers in         the EDA Playground link are scaled by 10x for visualization purposes. The RTL code in this repository and the Vivado synthesis reports use the strict, protocol-accurate 100kHz timing          (CLK_HALF_PERIOD = 500) as per the requirements.**
 ###  Repository Structure
 * `/src/` - Contains the Verilog RTL modules (`top`, `master`, `slave`) and the simulation files (`mock_i2c_device`, `testbench`).
 * `/reports/` - Contains the synthesis Resource Utilization Report (Basys-3 target) and the simulation waveform proof.
