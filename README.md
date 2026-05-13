@@ -20,3 +20,34 @@ The system implements a bidirectional Store-and-Forward architecture using two i
 * The **Sensor-facing Master** forwards the buffered payload to the physical target address (`0x48`) at a standard 100kHz I²C timing.
 
 <img width="1655" height="607" alt="image" src="https://github.com/user-attachments/assets/2450b5d7-7c96-4d0d-b647-5f8cbf1f9dd8" />
+
+### Finite State Machine (FSM) Flow
+
+```mermaid
+stateDiagram-v2
+    direction TB
+    [*] --> IDLE : System Reset
+
+    IDLE --> START_DETECT : SDA falling edge (SCL=1)
+    
+    START_DETECT --> SHIFT_ADDRESS : SCL toggling
+    note right of SHIFT_ADDRESS: Shift in 7-bit Addr + R/W bit
+    
+    SHIFT_ADDRESS --> CHECK_MATCH : 8th SCL Edge
+    
+    CHECK_MATCH --> INTERCEPT : rx_addr == 0x49
+    CHECK_MATCH --> BYPASS : rx_addr != 0x49
+    
+    INTERCEPT --> CLOCK_STRETCH : Pull SCL LOW
+    note left of CLOCK_STRETCH: Hold Host Controller
+    
+    CLOCK_STRETCH --> TRANSMIT_NEW_ADDR : Send 0x48 to Bus
+    TRANSMIT_NEW_ADDR --> DATA_PHASE : Target Slave ACKs
+    
+    BYPASS --> DATA_PHASE : Normal Passthrough
+    
+    DATA_PHASE --> DATA_PHASE : Tx/Rx 8-bit Data + ACK phase
+    
+    DATA_PHASE --> STOP_DETECT : SDA rising edge (SCL=1)
+    
+    STOP_DETECT --> IDLE : Transaction Complete
