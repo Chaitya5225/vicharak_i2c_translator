@@ -1,4 +1,6 @@
 # FPGA I²C Address Translator
+![Language](https://img.shields.io/badge/Language-Verilog-blue.svg)
+![Tools](https://img.shields.io/badge/Tools-AMD_Xilinx_Vivado-orange.svg)
 
 This repository contains the RTL, testbenches, and documentation for an FPGA-based I²C address translator. The design allows a single device's I²C address to be dynamically remapped, enabling it to coexist with other devices sharing the same default physical address.
 
