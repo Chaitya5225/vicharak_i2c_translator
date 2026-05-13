@@ -51,3 +51,4 @@ stateDiagram-v2
     DATA_PHASE --> STOP_DETECT : SDA rising edge (SCL=1)
     
     STOP_DETECT --> IDLE : Transaction Complete
+```
